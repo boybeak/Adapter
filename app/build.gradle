@@ -45,5 +45,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     kapt "com.android.databinding:compiler:$gradle_version"
 //    implementation project(':adapter')
+    implementation 'com.github.boybeak:adapter:5.0.1'
+//    kapt 'com.github.boybeak:adapter-compiler:5.0.0'
     kapt project(':adapter-compiler')
+
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.4.0'
 }

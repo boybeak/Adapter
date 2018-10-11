@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+## Do copy annotation classes from annotation module to adapter module
+TARGET_PATH="./adapter/src/main/java/com/github/boybeak/adapter/annotation"
+SOURCE_PATH="./annotation/src/main/java/com/github/boybeak/adapter/annotation"
+rm -rf "$TARGET_PATH"
+cp -rf "$SOURCE_PATH" "$TARGET_PATH"
+
+## Do ./gradlew adapter:install
+./gradlew adapter:install
+
+## Do ./gradlew adapter:bintrayUpload
+./gradlew adapter:bintrayUpload

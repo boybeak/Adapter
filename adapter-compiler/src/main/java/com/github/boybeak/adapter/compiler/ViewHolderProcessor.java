@@ -38,8 +38,8 @@ public class ViewHolderProcessor extends AbstractProcessor {
     private static final String SOURCE = "source", VIEW_TYPE = "viewType", BINDING = "binding";
 
     private String packageName = null;
-    private Map<Integer, String> viewTypeHolders = new HashMap<>();
-    private Map<Integer, String> viewTypeBindings = new HashMap<>();
+    private Map<Integer, TypeElement> viewTypeHolders = new HashMap<>();
+//    private Map<Integer, String> viewTypeBindings = new HashMap<>();
 
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
@@ -54,7 +54,8 @@ public class ViewHolderProcessor extends AbstractProcessor {
         List<? extends TypeElement> typeElements = new ArrayList<>(ElementFilter.typesIn(elementSet));
 
         for (TypeElement e : typeElements) {
-            processHolderInfo(e, "total count is " + typeElements.size());
+
+            processHolderInfo(e, e.getSuperclass().toString());
         }
 
         generateFactory();
@@ -66,11 +67,11 @@ public class ViewHolderProcessor extends AbstractProcessor {
         HolderInfo holder = element.getAnnotation(HolderInfo.class);
         int layout = holder.layoutId();
         if (!viewTypeHolders.containsKey(layout)) {
-            viewTypeHolders.put(layout, getHolderName(element));
+            viewTypeHolders.put(layout, element);
         }
-        if (!viewTypeBindings.containsKey(layout)) {
+        /*if (!viewTypeBindings.containsKey(layout)) {
             viewTypeBindings.put(layout, getViewBinding(holder));
-        }
+        }*/
 
         if (!Helper.isNullLayoutInfo(holder.layoutInfo())) {
             generateLayoutImpl(holder.layoutId(), holder.layoutInfo(), log);
@@ -129,7 +130,7 @@ public class ViewHolderProcessor extends AbstractProcessor {
         MethodSpec getHolderSpec = getHolderMethodSpec();
 
         TypeSpec typeSpec = TypeSpec.classBuilder(Constant.FACTORY)
-                .addJavadoc(viewTypeBindings.size() + "")
+//                .addJavadoc(viewTypeBindings.size() + "")
                 .addModifiers(Modifier.PUBLIC)
                 .addSuperinterface(ClassName.get("com.github.boybeak.adapter", "HolderFactory"))
                 .addMethod(getHolderSpec)
@@ -150,20 +151,24 @@ public class ViewHolderProcessor extends AbstractProcessor {
                 .addParameter(ParameterSpec.builder(int.class, VIEW_TYPE).build())
                 .addParameter(ParameterSpec.builder(ClassName.get("android.databinding", "ViewDataBinding"), BINDING).build())
                 .returns(ClassName.get("com.github.boybeak.adapter", "AbsDataBindingHolder"));
-        if (!viewTypeBindings.isEmpty()) {
+        if (!viewTypeHolders.isEmpty()) {
             builder.addCode("switch(viewType) {\n");
-            Set<Integer> keys = viewTypeBindings.keySet();
+            Set<Integer> keys = viewTypeHolders.keySet();
             for (Integer key : keys) {
-
-                String holderName = viewTypeHolders.get(key);
+                TypeElement element = viewTypeHolders.get(key);
+                String holderSupClzName = element.getSuperclass().toString();
+                if (!holderSupClzName.contains("com.github.boybeak.adapter.AbsDataBindingHolder")) {
+                    continue;
+                }
+                String holderName = getHolderName(element);
                 ClassName holderClz = Helper.getClassName(holderName);
-                String bindingName = viewTypeBindings.get(key);
+                String bindingName = getViewBindingClzName(holderSupClzName);
                 ClassName bindingClz = Helper.getClassName(bindingName);
 
                 builder.addCode("\tcase $L:\n", key);
                 builder.addCode("\treturn new $T(($T)$L);\n", holderClz, bindingClz, BINDING);
 
-                builder.addComment(bindingName);
+//                builder.addComment(bindingName);
             }
             builder.addCode("}\n");
         }
@@ -171,14 +176,10 @@ public class ViewHolderProcessor extends AbstractProcessor {
         return builder.addCode("return null;\n").build();
     }
 
-    private String getViewBinding(HolderInfo holder) {
-        String name;
-        try {
-            name = holder.viewBindingClass().getName();
-        } catch (MirroredTypeException mte) {
-            name = mte.getTypeMirror().toString();
-        }
-        return packageName + ".databinding" + name.substring(name.lastIndexOf('.'));
+    private String getViewBindingClzName(String holderSupClzName) {
+        return holderSupClzName.substring(
+                holderSupClzName.lastIndexOf(",") + 1,
+                holderSupClzName.lastIndexOf(">"));
     }
 
     private String getHolderName(TypeElement element) {

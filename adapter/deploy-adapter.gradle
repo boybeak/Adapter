@@ -7,10 +7,11 @@ ext {
     // compile '<groupId>:<artifactId>:<libVersion>'
     groupId = 'com.github.boybeak' // package name of the project
     artifactId = "adapter" // module name of the library
-    libVersion = "5.0.0"
+    libVersion = "5.0.2"
 }
 version = libVersion
 group = groupId
+
 //take a look at https://github.com/bintray/gradle-bintray-plugin#buildgradle
 bintray {
     user = 'boybeak' // Your bintray User
@@ -29,7 +30,9 @@ bintray {
         }
     }
 }
+
 install {
+
     repositories.mavenInstaller {
         pom.project {
             packaging 'aar'
@@ -39,6 +42,7 @@ install {
             name artifactId // pom.project.name must be same as bintray.pkg.name
         }
     }
+
 }
 
 //just copy paste the lines below

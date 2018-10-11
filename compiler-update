@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+## Do ./gradlew adapter:install
+./gradlew adapter:install
+
+## Do ./gradlew adapter-compiler:bintrayUpload
+./gradlew adapter-compiler:bintrayUpload
