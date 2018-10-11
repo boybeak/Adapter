@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.SOURCE)
 public @interface HolderInfo {
+
     int layoutId();
     Class<?> viewBindingClass();
     LayoutInfo layoutInfo();
