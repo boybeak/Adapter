@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">AutoBind</string>
+    <string name="app_version">版本</string>
+    <string name="studio">画室</string>
+    <string name="admin">用户</string>
+    <string name="manufacturer_model">品牌 / 型号</string>
+    <string name="incermental">系统</string>
+    <string name="sdk">SDK</string>
+    <string name="crash_time">崩溃时间</string>
 </resources>

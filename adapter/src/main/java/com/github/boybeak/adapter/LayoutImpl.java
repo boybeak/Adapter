@@ -6,13 +6,13 @@ import android.support.annotation.LayoutRes;
  * Created by gaoyunfei on 2018/3/8.
  */
 
-public interface LayoutImpl<Data/*, VH extends AbsDataBindingHolder*/> {
+public interface LayoutImpl<Data> {
     String id();
     void setId(String id);
     Data getSource();
     void setSource(Data data);
     <T> T getSourceUnSafe();
-//    Class<? extends AbsDataBindingHolder> getHolderClass();
+    Class<? extends AbsDataBindingHolder> getHolderClass();
     @LayoutRes int getLayout();
 
     void setSelected(boolean selected);

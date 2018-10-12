@@ -16,14 +16,14 @@ import java.lang.reflect.InvocationTargetException;
 
 public abstract class AbsAdapter extends RecyclerView.Adapter<AbsDataBindingHolder> {
 
-//    private SparseArrayCompat<Class<? extends AbsDataBindingHolder>> mTypeHolderMap = null; // key -- layout, value -- holderClass
+    private SparseArrayCompat<Class<? extends AbsDataBindingHolder>> mTypeHolderMap = null; // key -- layout, value -- holderClass
 
     private LayoutInflater mInflater;
     private HolderFactory mFactory;
 
     public AbsAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
-//        mTypeHolderMap = new SparseArrayCompat<>();
+        mTypeHolderMap = new SparseArrayCompat<>();
         mFactory = getFactory();
     }
 
@@ -34,14 +34,17 @@ public abstract class AbsAdapter extends RecyclerView.Adapter<AbsDataBindingHold
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
         }
-        return null;
+        throw new IllegalStateException("HolderMaker not found.");
     }
 
     @Override
     public AbsDataBindingHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ViewDataBinding binding = DataBindingUtil.inflate(mInflater, viewType, parent, false);
-        return mFactory.getHolder(viewType, binding);
-//        return getHolder(viewType, binding);
+        AbsDataBindingHolder holder = mFactory.getHolder(viewType, binding);
+        if (holder == null) {
+            holder = getHolder(viewType, binding);
+        }
+        return holder;
     }
 
     @Override
@@ -49,7 +52,7 @@ public abstract class AbsAdapter extends RecyclerView.Adapter<AbsDataBindingHold
         holder.bindData(getItem(position), position, this);
     }
 
-    /*private AbsDataBindingHolder getHolder (int viewType, ViewDataBinding binding) {
+    private AbsDataBindingHolder getHolder (int viewType, ViewDataBinding binding) {
         if (mTypeHolderMap.indexOfKey(viewType) >= 0) {
             Class<? extends AbsDataBindingHolder> clz = mTypeHolderMap.get(viewType);
             if (clz != null) {
@@ -64,7 +67,7 @@ public abstract class AbsAdapter extends RecyclerView.Adapter<AbsDataBindingHold
             }
         }
         throw new IllegalStateException("Can not create ViewHolder for viewType=0X" + Integer.toHexString(viewType));
-    }*/
+    }
 
     private Constructor<? extends AbsDataBindingHolder> getConstructor(Class<? extends AbsDataBindingHolder> clz, ViewDataBinding binding) {
         try {
@@ -90,20 +93,20 @@ public abstract class AbsAdapter extends RecyclerView.Adapter<AbsDataBindingHold
     @Override
     public int getItemViewType(int position) {
         LayoutImpl layout = getItem(position);
-        /*int type = layout.getLayout();
+        int type = layout.getLayout();
         Class<? extends AbsDataBindingHolder> holderClz = layout.getHolderClass();
-        if (holderClz == null) {
-            throw new IllegalStateException("class not be defined by class(" + layout.getClass().getName()
-                    + "), please define a layout resource id by getHolderClass");
-        }
+
         if (type <= 0) {
             throw new IllegalStateException("layout not be defined by class(" + layout.getClass().getName()
                     + "), please define a layout resource id by getLayout");
         }
-        if (mTypeHolderMap.indexOfKey(type) < 0) {
-            mTypeHolderMap.put(type, holderClz);
-        }*/
-        return layout.getLayout();
+        if (holderClz != null) {
+            if (mTypeHolderMap.indexOfKey(type) < 0) {
+                mTypeHolderMap.put(type, holderClz);
+            }
+        }
+
+        return type;
     }
 
     public abstract @NonNull LayoutImpl getItem (int position);

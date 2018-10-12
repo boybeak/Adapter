@@ -7,7 +7,7 @@ ext {
     // compile '<groupId>:<artifactId>:<libVersion>'
     groupId = 'com.github.boybeak' // package name of the project
     artifactId = "adapter" // module name of the library
-    libVersion = "5.0.2"
+    libVersion = common_version
 }
 version = libVersion
 group = groupId

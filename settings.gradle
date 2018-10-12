@@ -1,1 +1,1 @@
-include ':app', ':adapter', ':adapter-compiler', ':annotation'
+include ':app', ':adapter', ':adapter-compiler', ':annotation', ':base'

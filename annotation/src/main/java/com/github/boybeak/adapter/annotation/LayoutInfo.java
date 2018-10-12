@@ -7,6 +7,9 @@ import java.lang.annotation.RetentionPolicy;
 public @interface LayoutInfo {
     String name() default "";
     Class<?> source() default void.class;
+
+    Constructor[] constructors() default {};
+
     boolean supportSelect() default false;
     boolean selectable() default false;
 }

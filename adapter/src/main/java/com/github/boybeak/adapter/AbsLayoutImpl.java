@@ -6,8 +6,8 @@ import java.util.UUID;
  * Created by gaoyunfei on 2018/3/8.
  */
 
-public abstract class BaseLayoutImpl<Data/*, VH extends AbsDataBindingHolder*/>
-        implements LayoutImpl<Data/*, VH*/> {
+public abstract class AbsLayoutImpl<Data>
+        implements LayoutImpl<Data> {
 
     private Data data;
     private String id = null;
@@ -27,13 +27,13 @@ public abstract class BaseLayoutImpl<Data/*, VH extends AbsDataBindingHolder*/>
         this.id = id;
     }
 
-    public BaseLayoutImpl(Data data) {
-        this(UUID.randomUUID().toString(), data);
+    public AbsLayoutImpl(Data data) {
+        this(data, UUID.randomUUID().toString());
     }
 
-    public BaseLayoutImpl(String id, Data data) {
-        setId(id);
+    public AbsLayoutImpl(Data data, String id) {
         this.data = data;
+        setId(id);
     }
 
     @Override
@@ -49,6 +49,11 @@ public abstract class BaseLayoutImpl<Data/*, VH extends AbsDataBindingHolder*/>
     @Override
     public void setSource (Data data) {
         this.data = data;
+    }
+
+    @Override
+    public Class<? extends AbsDataBindingHolder> getHolderClass() {
+        return null;
     }
 
     @Override
