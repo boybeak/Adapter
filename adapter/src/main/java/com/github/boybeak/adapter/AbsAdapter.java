@@ -34,13 +34,17 @@ public abstract class AbsAdapter extends RecyclerView.Adapter<AbsDataBindingHold
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
         }
-        throw new IllegalStateException("HolderMaker not found.");
+        return null;
+//        throw new IllegalStateException("HolderMaker not found.");
     }
 
     @Override
     public AbsDataBindingHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ViewDataBinding binding = DataBindingUtil.inflate(mInflater, viewType, parent, false);
-        AbsDataBindingHolder holder = mFactory.getHolder(viewType, binding);
+        AbsDataBindingHolder holder = null;
+        if (mFactory != null) {
+            holder = mFactory.getHolder(viewType, binding);
+        }
         if (holder == null) {
             holder = getHolder(viewType, binding);
         }

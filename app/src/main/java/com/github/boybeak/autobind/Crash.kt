@@ -33,6 +33,16 @@ class Crash() : Parcelable {
     val nameWithRole: String
         get() = "$name · ${when(role){1->"T" 2->"S" 3->"F" else -> "Unknown"}}"
 
+    fun formattedCrashInfo(): CharSequence {
+        if (crash_info == null) {
+            return ""
+        }
+
+        return HtmlCompat.fromHtml(
+                crash_info!!.trim().replace("\n", "<p>").replace(":", ":<b>")
+                        .replace(")", "</b>)"), HtmlCompat.FROM_HTML_MODE_COMPACT)
+    }
+
     constructor(parcel: Parcel) : this() {
         sdk_int = parcel.readInt()
         id = parcel.readString()
@@ -85,16 +95,6 @@ class Crash() : Parcelable {
         override fun newArray(size: Int): Array<Crash?> {
             return arrayOfNulls(size)
         }
-    }
-
-    fun formattedCrashInfo(): CharSequence {
-        if (crash_info == null) {
-            return ""
-        }
-
-        return HtmlCompat.fromHtml(
-                crash_info!!.trim().replace("\n", "<p>").replace(":", ":<b>")
-                        .replace(")", "</b>)"), HtmlCompat.FROM_HTML_MODE_COMPACT)
     }
 
 }

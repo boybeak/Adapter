@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.github.boybeak.adapter.Converter
 import com.github.boybeak.adapter.DataBindingAdapter
-import com.github.boybeak.adapter.generated.CrashImpl
+import com.github.boybeak.autobind.adapter.CrashImpl
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback

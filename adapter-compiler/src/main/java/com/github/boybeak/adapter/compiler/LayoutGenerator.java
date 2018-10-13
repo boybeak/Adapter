@@ -5,15 +5,12 @@ import com.github.boybeak.adapter.annotation.LayoutInfo;
 import com.github.boybeak.adapter.annotation.Member;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.List;
 
 import javax.lang.model.element.Modifier;
@@ -25,7 +22,7 @@ public class LayoutGenerator {
 
     private static final String SOURCE = "source", ID = "id";
 
-    public static TypeSpec generateLayoutImpl(int layoutId, LayoutInfo info, String comment) {
+    public static TypeSpec generateLayoutImpl(int layoutId, LayoutInfo info) {
 
         TypeName source = getSource(info);
         ParameterizedTypeName superClz = ParameterizedTypeName.get(
@@ -33,7 +30,6 @@ public class LayoutGenerator {
                 source
         );
         TypeSpec.Builder typeBuilder = TypeSpec.classBuilder(info.name())
-                .addJavadoc(comment)
                 .addModifiers(Modifier.PUBLIC)
                 .superclass(superClz);
 
@@ -107,23 +103,46 @@ public class LayoutGenerator {
     }
 
     private static TypeName getSource(LayoutInfo info) {
+        TypeName[] generics = getSourceGenerics(info);
+        if (generics.length > 0) {
+            return ParameterizedTypeName.get(getSourceType(info), generics);
+        } else {
+            return getSourceType(info);
+        }
+
+    }
+
+    private static ClassName getSourceType(LayoutInfo info) {
         TypeMirror clazzType;
         try {
-            return TypeName.get(info.source());
+            return ClassName.get(info.source());
         } catch (MirroredTypeException mte) {
             clazzType = mte.getTypeMirror();
         }
-        return TypeName.get(clazzType);
+        return Helper.getClassName(clazzType.toString());
+    }
+
+    private static TypeName[] getSourceGenerics(LayoutInfo info) {
+        List<? extends TypeMirror> mirrors;
+        TypeName[] typeNames;
+        try {
+            Class<?>[] types = info.sourceGenerics();
+            typeNames = new TypeName[types.length];
+            for (int i = 0; i < typeNames.length; i++) {
+                typeNames[i] = TypeName.get(types[i]);
+            }
+        } catch (MirroredTypesException mte) {
+            mirrors = mte.getTypeMirrors();
+            typeNames = new TypeName[mirrors.size()];
+            for (int i = 0; i < mirrors.size(); i++) {
+                typeNames[i] = TypeName.get(mirrors.get(i));
+            }
+        }
+        return typeNames;
     }
 
     private static TypeName getMemberType(Member member) {
-//        TypeMirror clazzType;
-//        try {
-            return ParameterizedTypeName.get(getMemberTypeClassName(member), getTypes(member));
-//        } catch (MirroredTypeException mte) {
-//            clazzType = mte.getTypeMirror();
-//        }
-//        return ParameterizedTypeName.get(getMemberTypeClassName(member), getTypes(member));
+        return ParameterizedTypeName.get(getMemberTypeClassName(member), getTypes(member));
     }
 
     private static ClassName getMemberTypeClassName(Member member) {

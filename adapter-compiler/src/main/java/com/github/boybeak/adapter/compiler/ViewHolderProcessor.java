@@ -21,6 +21,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.ElementFilter;
 
@@ -41,7 +42,6 @@ public class ViewHolderProcessor extends AbstractProcessor {
         List<? extends TypeElement> typeElements = new ArrayList<>(ElementFilter.typesIn(elementSet));
 
         for (TypeElement e : typeElements) {
-
             processHolderInfo(e, e.getSuperclass().toString());
         }
 
@@ -61,13 +61,13 @@ public class ViewHolderProcessor extends AbstractProcessor {
         }*/
 
         if (!Helper.isNullLayoutInfo(holder.layoutInfo())) {
-            generateLayoutImpl(holder.layoutId(), holder.layoutInfo(), log);
+            PackageElement pkg = processingEnv.getElementUtils().getPackageOf(element);
+            generateLayoutImpl(holder.layoutId(), holder.layoutInfo(), pkg.getQualifiedName().toString());
         }
     }
 
-    private void generateLayoutImpl(int layoutId, LayoutInfo info, String comment) {
-        JavaFile javaFile = JavaFile.builder(Constant.PACKAGE,
-                LayoutGenerator.generateLayoutImpl(layoutId, info, comment)).build();
+    private void generateLayoutImpl(int layoutId, LayoutInfo info, String pkg) {
+        JavaFile javaFile = JavaFile.builder(pkg, LayoutGenerator.generateLayoutImpl(layoutId, info)).build();
         try {
             javaFile.writeTo(processingEnv.getFiler());
         } catch (IOException e) {

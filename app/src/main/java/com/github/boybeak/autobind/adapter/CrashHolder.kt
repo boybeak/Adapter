@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView
 import com.github.boybeak.adapter.AbsDataBindingHolder
 import com.github.boybeak.adapter.annotation.HolderInfo
 import com.github.boybeak.adapter.annotation.LayoutInfo
-import com.github.boybeak.adapter.generated.CrashImpl
 import com.github.boybeak.autobind.Crash
 import com.github.boybeak.autobind.CrashInfoActivity
 import com.github.boybeak.autobind.R

@@ -7,6 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 public @interface LayoutInfo {
     String name() default "";
     Class<?> source() default void.class;
+    Class<?>[] sourceGenerics() default {};
 
     Constructor[] constructors() default {};
 
