@@ -86,7 +86,7 @@ adapter = DataBindingAdapter(this)
 recycler_view.adapter = adapter
 ```
 
-Bind Adapter and RecyclerView as usual. 
+Bind Adapter and `RecyclerView` as usual. 
 
 > Attenetion: the adapter is **DataBindingAdapter**. Or if you wanna custom your own adapter logic, just define custom class and extend [AbsAdapter](https://github.com/boybeak/Adapter/blob/master/adapter/src/main/java/com/github/boybeak/adapter/AbsAdapter.java)
 
@@ -175,14 +175,16 @@ public @interface HolderInfo {
 **LayoutInfo**
 
 ```java
-String name() default "";		//The LayoutImpl class name
-Class<?> source() default void.class;	//The sorce class, such as Crash.class
-Class<?>[] sourceGenerics() default {};	//The sorce's generic types, such as String for Crash<String> if Crash has generics
+public @interface LayoutInfo {
+    String name() default "";		//The LayoutImpl class name
+    Class<?> source() default void.class;	//The sorce class, such as Crash.class
+    Class<?>[] sourceGenerics() default {};	//The sorce's generic types, such as String for Crash<String> if Crash has generics
 
-Constructor[] constructors() default {}; //Constructors of LayoutImpl
+    Constructor[] constructors() default {}; //Constructors of LayoutImpl
 
-boolean supportSelect() default false;	// support select or not
-boolean selectable() default false;		// can be select or not, if you want set to true, you need set supportSelect to true
+    boolean supportSelect() default false;	// support select or not
+    boolean selectable() default false;		// can be select or not, if you want set to true, you need set supportSelect to true
+}
 ```
 
 **Constructor**
