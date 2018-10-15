@@ -3,4 +3,5 @@ $dokka.linkExtension:html
 
 com.github.boybeak.adapter
 com.github.boybeak.adapter.annotation
+com.github.boybeak.adapter.extension
 com.github.boybeak.adapter.selection

@@ -157,13 +157,6 @@
 </tr>
 <tr>
 <td>
-<p><a href="get-context.html">getContext</a></p>
-</td>
-<td>
-<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getContext</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a></code></td>
-</tr>
-<tr>
-<td>
 <p><a href="get-data-list.html">getDataList</a></p>
 </td>
 <td>
@@ -263,10 +256,45 @@
 </tr>
 <tr>
 <td>
+<p><a href="is-data-index.html">isDataIndex</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">isDataIndex</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.DataBindingAdapter$isDataIndex(kotlin.Int)/index">index</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
 <p><a href="is-empty.html">isEmpty</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">isEmpty</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-footer-empty.html">isFooterEmpty</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">isFooterEmpty</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-footer-index.html">isFooterIndex</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">isFooterIndex</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.DataBindingAdapter$isFooterIndex(kotlin.Int)/index">index</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-header-empty.html">isHeaderEmpty</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">isHeaderEmpty</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-header-index.html">isHeaderIndex</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">isHeaderIndex</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.DataBindingAdapter$isHeaderIndex(kotlin.Int)/index">index</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
 </tr>
 <tr>
 <td>
@@ -309,14 +337,31 @@
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">remove</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.DataBindingAdapter$remove(com.github.boybeak.adapter.LayoutImpl((kotlin.Any)))/layout">layout</span><span class="symbol">:</span>&nbsp;<a href="../-layout-impl/index.html"><span class="identifier">LayoutImpl</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-data-change/index.html"><span class="identifier">DataChange</span></a></code><br/>
-<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">Data</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">remove</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.DataBindingAdapter$remove(com.github.boybeak.adapter.DataBindingAdapter.remove.Data)/data">data</span><span class="symbol">:</span>&nbsp;<a href="remove.html#Data"><span class="identifier">Data</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-data-change/index.html"><span class="identifier">DataChange</span></a></code></td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">Data</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">remove</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.DataBindingAdapter$remove(com.github.boybeak.adapter.DataBindingAdapter.remove.Data)/data">data</span><span class="symbol">:</span>&nbsp;<a href="remove.html#Data"><span class="identifier">Data</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-data-change/index.html"><span class="identifier">DataChange</span></a></code><br/>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">remove</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.DataBindingAdapter$remove(kotlin.Int)/index">index</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-data-change/index.html"><span class="identifier">DataChange</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="remove-footer.html">removeFooter</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">removeFooter</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.DataBindingAdapter$removeFooter(com.github.boybeak.adapter.LayoutImpl((kotlin.Any)))/layout">layout</span><span class="symbol">:</span>&nbsp;<a href="../-layout-impl/index.html"><span class="identifier">LayoutImpl</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-data-change/index.html"><span class="identifier">DataChange</span></a></code><br/>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">removeFooter</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.DataBindingAdapter$removeFooter(kotlin.Int)/indexInFooter">indexInFooter</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-data-change/index.html"><span class="identifier">DataChange</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="remove-from-data.html">removeFromData</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">removeFromData</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.DataBindingAdapter$removeFromData(kotlin.Int)/indexOfData">indexOfData</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-data-change/index.html"><span class="identifier">DataChange</span></a></code></td>
 </tr>
 <tr>
 <td>
 <p><a href="remove-header.html">removeHeader</a></p>
 </td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">removeHeader</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.DataBindingAdapter$removeHeader(com.github.boybeak.adapter.LayoutImpl((kotlin.Any)))/layout">layout</span><span class="symbol">:</span>&nbsp;<a href="../-layout-impl/index.html"><span class="identifier">LayoutImpl</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-data-change/index.html"><span class="identifier">DataChange</span></a></code></td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">removeHeader</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.DataBindingAdapter$removeHeader(com.github.boybeak.adapter.LayoutImpl((kotlin.Any)))/layout">layout</span><span class="symbol">:</span>&nbsp;<a href="../-layout-impl/index.html"><span class="identifier">LayoutImpl</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-data-change/index.html"><span class="identifier">DataChange</span></a></code><br/>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">removeHeader</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter.DataBindingAdapter$removeHeader(kotlin.Int)/indexInHeader">indexInHeader</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-data-change/index.html"><span class="identifier">DataChange</span></a></code></td>
 </tr>
 <tr>
 <td>
@@ -398,6 +443,20 @@
 </td>
 <td>
 <code><span class="keyword">operator</span> <span class="keyword">fun </span><a href="./index.html"><span class="identifier">DataBindingAdapter</span></a><span class="symbol">.</span><span class="identifier">get</span><span class="symbol">(</span><span class="identifier" id="com.github.boybeak.adapter$get(com.github.boybeak.adapter.DataBindingAdapter, kotlin.Int)/index">index</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-layout-impl/index.html"><span class="identifier">LayoutImpl</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../com.github.boybeak.adapter.extension/-footer-adapter/index.html">FooterAdapter</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">FooterAdapter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">DataBindingAdapter</span></a></code>
+<p>Created by gaoyunfei on 2018/3/9.</p>
+</td>
 </tr>
 </tbody>
 </table>

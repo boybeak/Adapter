@@ -27,14 +27,9 @@ public class DataBindingAdapter extends AbsAdapter {
     private List<LayoutImpl> mDataList = null;
     private List<LayoutImpl> mFooterList = null;
 
-    private Context mContext;
-
     public DataBindingAdapter (Context context) {
         super(context);
-        mContext = context;
-
         mDataList = new ArrayList<>();
-
     }
 
     @Override
@@ -47,10 +42,6 @@ public class DataBindingAdapter extends AbsAdapter {
     public void onViewDetachedFromWindow(@NonNull AbsDataBindingHolder holder) {
         super.onViewDetachedFromWindow(holder);
         holder.onViewDetachedFromWindow();
-    }
-
-    public Context getContext () {
-        return mContext;
     }
 
     public List<LayoutImpl> getDataList () {
@@ -114,6 +105,14 @@ public class DataBindingAdapter extends AbsAdapter {
 
     public boolean isDataEmpty () {
         return mDataList.isEmpty();
+    }
+
+    public boolean isHeaderEmpty() {
+        return mHeaderList == null || mHeaderList.isEmpty();
+    }
+
+    public boolean isFooterEmpty() {
+        return mFooterList == null || mFooterList.isEmpty();
     }
 
     public boolean containsInHeader (Class<? extends LayoutImpl> clz) {
@@ -279,6 +278,14 @@ public class DataBindingAdapter extends AbsAdapter {
         return new DataChange(this, getAdapterPositionOfData(index), DataChange.TYPE_ITEM_CHANGED);
     }
 
+    public DataChange removeFromData(int indexOfData) {
+        if (indexOfData >= 0 && indexOfData < mDataList.size()) {
+            mDataList.remove(indexOfData);
+            return new DataChange(this, getAdapterPositionOfData(indexOfData), DataChange.TYPE_ITEM_REMOVED);
+        }
+        return DataChange.doNothingInstance();
+    }
+
     public DataChange remove (LayoutImpl layout) {
         int index = mDataList.indexOf(layout);
         if (mDataList.remove(layout)) {
@@ -298,6 +305,19 @@ public class DataBindingAdapter extends AbsAdapter {
         if (removeIndex >= 0) {
             mDataList.remove(removeIndex);
             return new DataChange(this, removeIndex, DataChange.TYPE_ITEM_REMOVED);
+        }
+        return DataChange.doNothingInstance();
+    }
+
+    public DataChange remove(int index) {
+        if (isHeaderIndex(index)) {
+            return removeHeader(index);
+        }
+        if (isDataIndex(index)) {
+            return removeFromData(index - getHeaderSize());
+        }
+        if (isFooterIndex(index)) {
+            return removeFooter(index - getHeaderSize() - getDataSize());
         }
         return DataChange.doNothingInstance();
     }
@@ -335,6 +355,20 @@ public class DataBindingAdapter extends AbsAdapter {
         return DataChange.doNothingInstance();
     }
 
+    public boolean isHeaderIndex(int index) {
+        return index >= 0 && index < getHeaderSize();
+    }
+
+    public boolean isDataIndex(int index) {
+        int idx = index - getHeaderSize();
+        return idx >= 0 && idx < getDataSize();
+    }
+
+    public boolean isFooterIndex(int index) {
+        int idx = index - getHeaderSize() - getDataSize();
+        return idx >= 0 && idx < getFooterSize();
+    }
+
     public DataChange addHeader (LayoutImpl layout) {
         if (mHeaderList == null) {
             mHeaderList = new ArrayList<>();
@@ -361,7 +395,7 @@ public class DataBindingAdapter extends AbsAdapter {
     }
 
     public DataChange clearHeaders() {
-        if (mHeaderList == null) {
+        if (isHeaderEmpty()) {
             return DataChange.doNothingInstance();
         }
         int count = mHeaderList.size();
@@ -370,15 +404,41 @@ public class DataBindingAdapter extends AbsAdapter {
     }
 
     public DataChange removeHeader (LayoutImpl layout) {
-        if (mHeaderList == null) {
+        if (isHeaderEmpty()) {
             return DataChange.doNothingInstance();
         }
         int index = mHeaderList.indexOf(layout);
         if (index < 0) {
             return DataChange.doNothingInstance();
         }
-        mHeaderList.remove(layout);
-        return new DataChange(this, index, DataChange.TYPE_ITEM_REMOVED);
+        return removeHeader(index);
+    }
+
+    public DataChange removeHeader(int indexInHeader) {
+        if (!isHeaderEmpty() && indexInHeader >= 0 && indexInHeader <= getHeaderSize()) {
+            mHeaderList.remove(indexInHeader);
+            return new DataChange(this, getAdapterPositionOfHeader(indexInHeader), DataChange.TYPE_ITEM_REMOVED);
+        }
+        return DataChange.doNothingInstance();
+    }
+
+    public DataChange removeFooter(LayoutImpl layout) {
+        if (isFooterEmpty()) {
+            return DataChange.doNothingInstance();
+        }
+        int index = mFooterList.indexOf(layout);
+        if (index < 0) {
+            return DataChange.doNothingInstance();
+        }
+        return removeFooter(index);
+    }
+
+    public DataChange removeFooter(int indexInFooter) {
+        if (!isFooterEmpty() && indexInFooter >= 0 && indexInFooter < getFooterSize()) {
+            mFooterList.remove(indexInFooter);
+            return new DataChange(this, getAdapterPositionOfFooter(indexInFooter), DataChange.TYPE_ITEM_REMOVED);
+        }
+        return DataChange.doNothingInstance();
     }
 
     public DataChange addFooter (LayoutImpl layout) {
