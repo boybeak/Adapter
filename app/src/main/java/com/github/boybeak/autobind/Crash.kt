@@ -62,7 +62,7 @@ class Crash() : Parcelable {
     }
 
     fun sdk(): String {
-        return sdk_int.toString()
+        return  "${sdk_int.toString()} / ${VERSION_MAP[sdk_int]}"
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -87,14 +87,32 @@ class Crash() : Parcelable {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Crash> {
-        override fun createFromParcel(parcel: Parcel): Crash {
-            return Crash(parcel)
+    companion object  {
+
+        private val VERSION_MAP = HashMap<Int, String>()
+
+        init {
+            VERSION_MAP.put(21, "LOLLIPOP")
+            VERSION_MAP.put(22, "LOLLIPOP_MR1")
+            VERSION_MAP.put(23, "MARSHMALLOW")
+            VERSION_MAP.put(24, "NOUGAT")
+            VERSION_MAP.put(25, "NOUGAT_MR1")
+            VERSION_MAP.put(26, "OREO")
+            VERSION_MAP.put(27, "OREO_MR1")
+            VERSION_MAP.put(28, "PIE")
         }
 
-        override fun newArray(size: Int): Array<Crash?> {
-            return arrayOfNulls(size)
+        @JvmField
+        val CREATOR: Parcelable.Creator<Crash> = object : Parcelable.Creator<Crash> {
+            override fun createFromParcel(parcel: Parcel): Crash {
+                return Crash(parcel)
+            }
+
+            override fun newArray(size: Int): Array<Crash?> {
+                return arrayOfNulls(size)
+            }
         }
+
     }
 
 }
