@@ -148,7 +148,7 @@ public class DataBindingAdapter extends AbsAdapter {
     }
 
     public boolean contains(Object source) {
-        return contains(source) || containsInHeader(source) || containsInFooter(source);
+        return containsInData(source) || containsInHeader(source) || containsInFooter(source);
     }
 
     public boolean containsInData (Class<? extends LayoutImpl> clz) {
