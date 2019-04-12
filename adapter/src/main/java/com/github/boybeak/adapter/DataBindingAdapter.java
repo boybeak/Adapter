@@ -127,6 +127,18 @@ public class DataBindingAdapter extends AbsAdapter {
         return false;
     }
 
+    public boolean containsInHeader(Object source) {
+        if (!hasHeaders()) {
+            return false;
+        }
+        for (LayoutImpl layout : mHeaderList) {
+            if (layout.getSource().equals(source)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean contains(LayoutImpl layout) {
         return index(layout) >= 0;
     }
@@ -135,9 +147,22 @@ public class DataBindingAdapter extends AbsAdapter {
         return containsInData(clz) || containsInHeader(clz) || containsInFooter(clz);
     }
 
+    public boolean contains(Object source) {
+        return contains(source) || containsInHeader(source) || containsInFooter(source);
+    }
+
     public boolean containsInData (Class<? extends LayoutImpl> clz) {
         for (LayoutImpl layout : getDataList()) {
             if (clz.isInstance(layout)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean containsInData(Object source) {
+        for (LayoutImpl layout : getDataList()) {
+            if (layout.getSource().equals(source)) {
                 return true;
             }
         }
@@ -150,6 +175,18 @@ public class DataBindingAdapter extends AbsAdapter {
         }
         for (LayoutImpl layout : mFooterList) {
             if (clz.isInstance(layout)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean containsInFooter(Object source) {
+        if (!hasFooters()) {
+            return false;
+        }
+        for (LayoutImpl layout : mFooterList) {
+            if (layout.getSource().equals(source)) {
                 return true;
             }
         }
@@ -173,6 +210,22 @@ public class DataBindingAdapter extends AbsAdapter {
         return -1;
     }
 
+    public int indexBySource (Object source) {
+        int index = indexOfHeaderBySource(source);
+        if (index >= 0) {
+            return index;
+        }
+        index = indexOfDataBySource(source);
+        if (index >= 0) {
+            return getAdapterPositionOfData(index);
+        }
+        index = indexOfFooterBySource(source);
+        if (index >= 0) {
+            return getAdapterPositionOfFooter(index);
+        }
+        return -1;
+    }
+
     public int indexOfHeader(LayoutImpl layout) {
         if (mHeaderList == null) {
             return -1;
@@ -180,8 +233,29 @@ public class DataBindingAdapter extends AbsAdapter {
         return mHeaderList.indexOf(layout);
     }
 
+    public int indexOfHeaderBySource(Object source) {
+        if (!hasHeaders()) {
+            return -1;
+        }
+        for (int i = 0; i < mHeaderList.size(); i++) {
+            if (mHeaderList.get(i).getSource().equals(source)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public int indexOfData (LayoutImpl layout) {
         return mDataList.indexOf(layout);
+    }
+
+    public int indexOfDataBySource(Object object) {
+        for (int i = 0; i < mDataList.size(); i++) {
+            if (mDataList.get(i).getSource().equals(object)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public int indexOfFooter(LayoutImpl layout) {
@@ -189,6 +263,18 @@ public class DataBindingAdapter extends AbsAdapter {
             return -1;
         }
         return mFooterList.indexOf(layout);
+    }
+
+    public int indexOfFooterBySource(Object source) {
+        if (!hasFooters()) {
+            return -1;
+        }
+        for (int i = 0; i < mFooterList.size(); i++) {
+            if (mFooterList.get(i).getSource().equals(source)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public <T> Selector<T> getDataSelector (Class<T> tClass) {
