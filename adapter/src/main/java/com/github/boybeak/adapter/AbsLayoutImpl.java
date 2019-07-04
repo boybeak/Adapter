@@ -71,7 +71,7 @@ public abstract class AbsLayoutImpl<Data>
 
     @Override
     public void setSelected(boolean selected) {
-        if (!isSelectable) {
+        if (!isSelectable()) {
             return;
         }
         this.selected = selected;

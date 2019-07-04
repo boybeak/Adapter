@@ -17,18 +17,16 @@ import java.lang.reflect.InvocationTargetException;
 public class FooterAdapter extends DataBindingAdapter {
 
     private AbsFooterLayout mFooterImpl;
-    private Context mContext;
 
-    public FooterAdapter(Context context, AbsFooterLayout footerLayout) {
-        super(context);
-        mContext = context;
+    public FooterAdapter(AbsFooterLayout footerLayout) {
+        super();
         mFooterImpl = footerLayout;
         super.addFooter(mFooterImpl);
         notifyEmptyFooter();
     }
 
-    public FooterAdapter(Context context, Class<? extends AbsFooterLayout> clz) {
-        super(context);
+    public FooterAdapter(Class<? extends AbsFooterLayout> clz) {
+        super();
         mFooterImpl = makeFooterByClz(clz);
         super.addFooter(mFooterImpl);
         notifyEmptyFooter();
@@ -63,12 +61,12 @@ public class FooterAdapter extends DataBindingAdapter {
         notifyFooter(Footer.LOADING, null);
     }
 
-    public void notifySuccessFooter(@StringRes int msgRes) {
-        notifySuccessFooter(mContext.getString(msgRes));
+    public void notifySuccessFooter(Context context, @StringRes int msgRes) {
+        notifySuccessFooter(context.getString(msgRes));
     }
 
-    public void notifySuccessFooter(@StringRes int msgRes, Object ... args) {
-        notifySuccessFooter(mContext.getString(msgRes, args));
+    public void notifySuccessFooter(Context context, @StringRes int msgRes, Object ... args) {
+        notifySuccessFooter(context.getString(msgRes, args));
     }
 
     public void notifySuccessFooter (String message) {
@@ -79,12 +77,12 @@ public class FooterAdapter extends DataBindingAdapter {
         notifySuccessFooter(null);
     }
 
-    public void notifyFailedFooter(@StringRes int msgRes) {
-        notifyFailedFooter(mContext.getString(msgRes));
+    public void notifyFailedFooter(Context context, @StringRes int msgRes) {
+        notifyFailedFooter(context.getString(msgRes));
     }
 
-    public void notifyFailedFooter(@StringRes int msgRes, Object ... args) {
-        notifyFailedFooter(mContext.getString(msgRes, args));
+    public void notifyFailedFooter(Context context, @StringRes int msgRes, Object ... args) {
+        notifyFailedFooter(context.getString(msgRes, args));
     }
 
     public void notifyFailedFooter (String message) {
@@ -95,12 +93,12 @@ public class FooterAdapter extends DataBindingAdapter {
         notifyFailedFooter(null);
     }
 
-    public void notifyEmptyFooter(@StringRes int msgRes) {
-        notifyEmptyFooter(mContext.getString(msgRes));
+    public void notifyEmptyFooter(Context context, @StringRes int msgRes) {
+        notifyEmptyFooter(context.getString(msgRes));
     }
 
-    public void notifyEmptyFooter(@StringRes int msgRes, Object ... args) {
-        notifyEmptyFooter(mContext.getString(msgRes, args));
+    public void notifyEmptyFooter(Context context, @StringRes int msgRes, Object ... args) {
+        notifyEmptyFooter(context.getString(msgRes, args));
     }
 
     public boolean isNone() {

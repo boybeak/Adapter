@@ -1,6 +1,5 @@
 package com.github.boybeak.adapter;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
@@ -18,11 +17,9 @@ public abstract class AbsAdapter extends RecyclerView.Adapter<AbsDataBindingHold
 
     private SparseArrayCompat<Class<? extends AbsDataBindingHolder>> mTypeHolderMap = null; // key -- layout, value -- holderClass
 
-    private LayoutInflater mInflater;
     private HolderFactory mFactory;
 
-    public AbsAdapter(Context context) {
-        mInflater = LayoutInflater.from(context);
+    public AbsAdapter() {
         mTypeHolderMap = new SparseArrayCompat<>();
         mFactory = getFactory();
     }
@@ -40,7 +37,8 @@ public abstract class AbsAdapter extends RecyclerView.Adapter<AbsDataBindingHold
 
     @Override
     public AbsDataBindingHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ViewDataBinding binding = DataBindingUtil.inflate(mInflater, viewType, parent, false);
+        ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                viewType, parent, false);
         AbsDataBindingHolder holder = null;
         if (mFactory != null) {
             holder = mFactory.getHolder(viewType, binding);

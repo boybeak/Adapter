@@ -24,11 +24,11 @@ public class DataBindingAdapter extends AbsAdapter {
     private static final String TAG = DataBindingAdapter.class.getSimpleName();
 
     private List<LayoutImpl> mHeaderList = null;
-    private List<LayoutImpl> mDataList = null;
+    private List<LayoutImpl> mDataList;
     private List<LayoutImpl> mFooterList = null;
 
-    public DataBindingAdapter (Context context) {
-        super(context);
+    public DataBindingAdapter () {
+        super();
         mDataList = new ArrayList<>();
     }
 
@@ -290,9 +290,20 @@ public class DataBindingAdapter extends AbsAdapter {
         return new DataChange(this, getHeaderSize() + getDataSize() - 1, DataChange.TYPE_ITEM_INSERTED);
     }
 
+    /**
+     * @param position
+     * @param layout
+     * @return
+     */
     public DataChange add (int position, LayoutImpl layout) {
-        mDataList.add(position, layout);
-        return new DataChange(this, getHeaderSize() + position, DataChange.TYPE_ITEM_INSERTED);
+        if (isHeaderIndex(position)) {
+            mHeaderList.add(position, layout);
+        } else if (isDataIndex(position)) {
+            mDataList.add(position - getHeaderSize(), layout);
+        } else if (isFooterIndex(position)) {
+            mFooterList.add(position - getHeaderSize() - getDataSize(), layout);
+        }
+        return new DataChange(this, position, DataChange.TYPE_ITEM_INSERTED);
     }
 
     public DataChange addIfNotExist (LayoutImpl layout) {
@@ -302,10 +313,29 @@ public class DataBindingAdapter extends AbsAdapter {
         return add(layout);
     }
 
+    public DataChange addIfNotExist (int position, LayoutImpl layout) {
+        if (mDataList.contains(layout)) {
+            return DataChange.doNothingInstance();
+        }
+        return add(position, layout);
+    }
+
     public DataChange addAll (Collection<LayoutImpl> layouts) {
         int start = getHeaderSize() + getDataSize();
         mDataList.addAll(layouts);
         return new DataChange(this, start, layouts.size(),
+                DataChange.TYPE_ITEM_RANGE_INSERTED);
+    }
+
+    public DataChange addAll(int position, Collection<LayoutImpl> layouts) {
+        if (isHeaderIndex(position)) {
+            mHeaderList.addAll(position, layouts);
+        } else if (isDataIndex(position)) {
+            mDataList.addAll(position - getHeaderSize(), layouts);
+        } else if (isFooterIndex(position)) {
+            mFooterList.addAll(position - getHeaderSize() - getDataSize(), layouts);
+        }
+        return new DataChange(this, position, layouts.size(),
                 DataChange.TYPE_ITEM_RANGE_INSERTED);
     }
 
@@ -317,8 +347,20 @@ public class DataBindingAdapter extends AbsAdapter {
         return addAll(layouts);
     }
 
+    public <Data, Layout extends LayoutImpl> DataChange addAll (int position, Collection<Data> dataList, Converter<Data, Layout> converter) {
+        List<LayoutImpl> layouts = new ArrayList<>();
+        for (Data data : dataList) {
+            layouts.add(converter.convert(data, this));
+        }
+        return addAll(position, layouts);
+    }
+
     public <Data, Layout extends LayoutImpl> DataChange addAll(Data[] dataArray, Converter<Data, Layout> converter) {
         return addAll(Arrays.asList(dataArray), converter);
+    }
+
+    public <Data, Layout extends LayoutImpl> DataChange addAll(int position, Data[] dataArray, Converter<Data, Layout> converter) {
+        return addAll(position, Arrays.asList(dataArray), converter);
     }
 
     public <Data> DataChange addAll(Collection<Data> dataList, ListConverter<Data> converter) {
@@ -329,8 +371,20 @@ public class DataBindingAdapter extends AbsAdapter {
         return addAll(layouts);
     }
 
+    public <Data> DataChange addAll(int position, Collection<Data> dataList, ListConverter<Data> converter) {
+        List<LayoutImpl> layouts = new ArrayList<>();
+        for (Data data : dataList) {
+            layouts.addAll(converter.convert(data, this));
+        }
+        return addAll(position, layouts);
+    }
+
     public <Data> DataChange add(Data data, ListConverter<Data> converter) {
         return addAll(converter.convert(data, this));
+    }
+
+    public <Data> DataChange add(int position, Data data, ListConverter<Data> converter) {
+        return addAll(position, converter.convert(data, this));
     }
 
     public <Data> DataChange replaceFirst (Data from, Data to) {
