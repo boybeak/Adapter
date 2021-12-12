@@ -1,21 +1,13 @@
 apply plugin: 'java-library'
-apply plugin: 'com.jfrog.bintray'
-apply plugin: 'org.jetbrains.dokka-android'
-apply plugin: 'maven-publish'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':annotation')
-    implementation 'com.squareup:javapoet:1.11.1'
+    api 'com.squareup:javapoet:1.11.1'
 }
 
 sourceCompatibility = "7"
 targetCompatibility = "7"
 
-dokka {
-    outputFormat = 'html'
-    outputDirectory = '$buildDir/javadoc'
-}
-
-apply from: 'deploy-adapter-compiler.gradle'
+apply from: './publish.gradle'
