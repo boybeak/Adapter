@@ -48,16 +48,4 @@ dependencies {
     implementation 'com.github.boybeak:selector:1.2.7'
 }
 
-ext {
-    PUBLISH_ARTIFACT_ID = "adapter"
-    VERSION = common_version
-}
-
-apply from: '../publish.gradle'
-
-afterEvaluate {
-    generateReleaseBuildConfig.enabled = false
-    generateDebugBuildConfig.enabled = false
-    generateReleaseResValues.enabled = false
-    generateDebugResValues.enabled = false
-}
+apply from: '../publish-script.gradle'

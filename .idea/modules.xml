@@ -5,9 +5,22 @@
       <module fileurl="file://$PROJECT_DIR$/Adapter.iml" filepath="$PROJECT_DIR$/Adapter.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/adapter/Adapter.adapter.iml" filepath="$PROJECT_DIR$/.idea/modules/adapter/Adapter.adapter.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/adapter-compiler/Adapter.adapter-compiler.iml" filepath="$PROJECT_DIR$/.idea/modules/adapter-compiler/Adapter.adapter-compiler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/adapter-compiler/Adapter.adapter-compiler.main.iml" filepath="$PROJECT_DIR$/.idea/modules/adapter-compiler/Adapter.adapter-compiler.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/adapter-compiler/Adapter.adapter-compiler.test.iml" filepath="$PROJECT_DIR$/.idea/modules/adapter-compiler/Adapter.adapter-compiler.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/adapter/Adapter.adapter.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/adapter/Adapter.adapter.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/adapter/Adapter.adapter.main.iml" filepath="$PROJECT_DIR$/.idea/modules/adapter/Adapter.adapter.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/adapter/Adapter.adapter.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/adapter/Adapter.adapter.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/annotation/Adapter.annotation.iml" filepath="$PROJECT_DIR$/.idea/modules/annotation/Adapter.annotation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/annotation/Adapter.annotation.main.iml" filepath="$PROJECT_DIR$/.idea/modules/annotation/Adapter.annotation.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/annotation/Adapter.annotation.test.iml" filepath="$PROJECT_DIR$/.idea/modules/annotation/Adapter.annotation.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Adapter.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Adapter.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Adapter.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Adapter.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Adapter.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Adapter.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Adapter.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Adapter.app.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/base/Adapter.base.iml" filepath="$PROJECT_DIR$/.idea/modules/base/Adapter.base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/base/Adapter.base.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/base/Adapter.base.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/base/Adapter.base.main.iml" filepath="$PROJECT_DIR$/.idea/modules/base/Adapter.base.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/base/Adapter.base.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/base/Adapter.base.unitTest.iml" />
     </modules>
   </component>
 </project>

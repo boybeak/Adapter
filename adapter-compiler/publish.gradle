@@ -1,3 +1,0 @@
-//apply from: 'https://raw.githubusercontent.com/rain9155/MavenPublishScript/main/script/publication.gradle'
-apply from: '../config.gradle'
-apply from: '../publish-script.gradle'
